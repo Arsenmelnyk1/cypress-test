@@ -1,5 +1,3 @@
-import { userFormPageConstants } from "./constants";
-
 export function verifyLandingPageIsLoaded() {
   cy.visit("/");
   cy.get("header h1").should("contain", "Memberstack User Management");
@@ -56,4 +54,11 @@ export function verifyToggleStatus(expectedStatus) {
       .should('be.visible')
       .invoke('text').should('eq', expectedStatus);
   });
+}
+
+export function verifyValidationMessage(userNameExpectedMessage, emailExpectedMessage) {
+  cy.get('span[data-cy="error-name"]', { timeout: 5000 }).should('be.visible')
+    .and('contain', userNameExpectedMessage);
+  cy.get('span[data-cy="error-email"]', { timeout: 5000 }).should('be.visible')
+    .and('contain', emailExpectedMessage);
 }

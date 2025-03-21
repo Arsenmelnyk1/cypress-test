@@ -19,6 +19,68 @@
       "status": "active"
     }
   ],
+  "invalidUsers": [
+    {
+      "name": "Arsen Mel",
+      "email": "arsen.mel1@example.com",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "name": "Arsen-Mel",
+      "email": "arsen.mel2@example.com",
+      "role": "editor",
+      "status": "inactive"
+    },
+    {
+      "name": "Arsen_Mel",
+      "email": "arsen.mel3@example.com",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "name": "ArsenMel",
+      "email": "arsen.mel4@example.com",
+      "role": "admin",
+      "status": "inactive"
+    },
+    {
+      "name": "Arsen Mel_23",
+      "email": "arsen.mel5@example.com",
+      "role": "editor",
+      "status": "active"
+    },
+    {
+      "name": "arsen-mel",
+      "email": "arsen.mel6@example.com",
+      "role": "user",
+      "status": "inactive"
+    },
+    {
+      "name": "ARSEN_MEL",
+      "email": "arsen.mel7@example.com",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "name": "Arsen--Mel",
+      "email": "arsen.mel8@example.com",
+      "role": "editor",
+      "status": "inactive"
+    },
+    {
+      "name": "Arsen__Mel",
+      "email": "arsen.mel9@example.com",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "name": "Arsen  Mel",
+      "email": "arsen.mel10@example.com",
+      "role": "admin",
+      "status": "inactive"
+    }
+  ],
   "invalidInputs": {
     "shortName": "Ab",
     "invalidEmail": "not-an-email",
