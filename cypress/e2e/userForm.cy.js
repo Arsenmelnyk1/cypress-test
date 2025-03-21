@@ -121,27 +121,6 @@ describe("User Management Form - Basic Tests", () => {
     verifyValidationMessage('Name must be at least 3 characters', 'Valid email is required');
   });
 
-  // Test case bellow will fail due to the bug not being fixed
-  it('should not validate user email with spaces', () => {
-    cy.createUser(
-      validUsers[0].name,
-      invalidUsers.emailWithSpace,
-      validUsers[0].role,
-      validUsers[0].status
-    );
-    /* 
-      Validation and example of error message 'Valid email is required' 
-      or 'Email shouldn't have spaces'
-
-      Simple regex for email validation from W3C HTML5 specification:
-
-      `/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}
-      [a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$`
-    */
-    cy.get('span[data-cy="error-email"]').should('be.visible')
-      .and('contain', 'Valid email is required');
-  });
-
   it('should validate user with existed email', () => {
     cy.createUser(
       validUsers[0].name,
@@ -161,20 +140,41 @@ describe("User Management Form - Basic Tests", () => {
       .and('contain', 'Email already exists');
   });
 
-  // Test case bellow will fail due to the bug not being fixed
-  it('should validate invalid user name', () => {
-    verifyListOfUsers(userFormPageConstants.defaultUserQuantity);
-    clearUsersList('@userRows');
-    /* 
-    Typical regex for user name 
-    /^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$/
-    */
-    invalidUsersNames.forEach((invalidUser) => {
-      cy.createUser(invalidUser.name, invalidUser.email, invalidUser.role, invalidUser.status);
+  context('Test case bellow will fail due to the bug not being fixed', () => {
+    it('should validate invalid user name', () => {
+      verifyListOfUsers(userFormPageConstants.defaultUserQuantity);
+      clearUsersList('@userRows');
+      /* 
+      Typical regex for user name 
+      /^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$/
+      */
+      invalidUsersNames.forEach((invalidUser) => {
+        cy.createUser(invalidUser.name, invalidUser.email, invalidUser.role, invalidUser.status);
+      });
+
+      // Table should be empty and user name input should have validatoin for it. 
+      cy.get('p[data-cy="no-users"]').should('be.visible')
+        .and('contain', 'No users found');
     });
 
-    // Table should be empty and user name input should have validatoin for it. 
-    cy.get('p[data-cy="no-users"]').should('be.visible')
-      .and('contain', 'No users found');
+    it('should not validate user email with spaces', () => {
+      cy.createUser(
+        validUsers[0].name,
+        invalidUsers.emailWithSpace,
+        validUsers[0].role,
+        validUsers[0].status
+      );
+      /* 
+        Validation and example of error message 'Valid email is required' 
+        or 'Email shouldn't have spaces'
+  
+        Simple regex for email validation from W3C HTML5 specification:
+  
+        `/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}
+        [a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$`
+      */
+      cy.get('span[data-cy="error-email"]').should('be.visible')
+        .and('contain', 'Valid email is required');
+    });
   });
 });
